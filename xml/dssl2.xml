@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  copyright   : (C) 2017 Jesse A. Tov
+
+  Based on the DSSL syntax file:
+
+  Based on the Scheme syntax file:
+
+  This file is part of KDE's kate project.
+
+  copyright   : (C) 2004-2005 by Dominik Haumann
+  email       : dhdev at gmx dot de
+
+
+  copyright   : (C) 2004 by Goffart Olivier
+  email       : ogoffart @ kde.org
+      (brackets coloration)
+
+
+ **********************************************************************
+ * This library is free software; you can redistribute it and/or      *
+ * modify it under the terms of the GNU Library General Public        *
+ * License as published by the Free Software Foundation; either       *
+ * version 2 of the License, or (at your option) any later version.   *
+ *                                                                    *
+ * This library is distributed in the hope that it will be useful,    *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of     *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  *
+ * Library General Public License for more details.                   *
+ *                                                                    *
+ * You should have received a copy of the GNU Library General Public  *
+ * License along with this library; if not, write to the              *
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
+ * Boston, MA  02110-1301, USA.                                       *
+ **********************************************************************
+ NOTE:
+   This file defines highlighting rules for both Scheme AND Guile.
+   Scheme usually has no block comments. Guile has block comments: #! !#
+   I support these block comments: "Good design means good compromises" :)
+   Singleline comments are introduced through ';'. In reality EVERY
+   scheme/guile developer use ';;'. It is indented in emacs in a special way.
+   That's why I set <comment singleLine=";;">.
+
+   As a guile guru tole me it would not make sense to highlight all scheme and
+   guile procedures (cause then almost everything would be highlighted) I
+   removed some to have a rather small but "senseful" list of highlighted words.
+-->
+<language version="1.0" kateversion="2.4"
+    name="DSSL2" section="Scripts" extensions="*.rkt" mimetype="text/x-racket"
+    author="Jesse Tov" license="LGPL" priority="9">
+  <highlighting>
+    <list name="keywords">
+      <item> lambda </item>
+      <item> λ </item>
+      <item> let </item>
+      <item> assert </item>
+      <item> assert_eq </item>
+      <item> if </item>
+      <item> elif </item>
+      <item> else </item>
+      <item> while </item>
+      <item> for </item>
+      <item> in </item>
+      <item> return </item>
+      <item> pass </item>
+      <item> def </item>
+      <item> defstruct </item>
+      <item> test </item>
+      <item> and </item>
+      <item> or </item>
+    </list>
+    <contexts>
+      <context name="Default" attribute="Normal" lineEndContext="#stay">
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="[][(){}]"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <RegExpr attribute="Hash Lang" context="#stay"
+            String="#lang\s+[a-zA-Z0-9/-]+" />
+        <DetectChar attribute="String" context="DString" char="&quot;"/>
+        <DetectChar attribute="String" context="SString" char="'"/>
+        <RegExpr attribute="Decimal" context="#stay" String="\bTrue\b"/>
+        <RegExpr attribute="Decimal" context="#stay" String="\bFalse\b"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
+      </context>
+
+      <context name="DString" attribute="String" lineEndContext="#stay">
+        <Detect2Chars attribute="Char" context="#stay" char="\" char1="&quot;"/>
+        <Detect2Chars attribute="Char" context="#stay" char="\" char1="\"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+
+      <context name="SString" attribute="String" lineEndContext="#stay">
+        <Detect2Chars attribute="Char" context="#stay" char="\" char1="'"/>
+        <Detect2Chars attribute="Char" context="#stay" char="\" char1="\"/>
+        <DetectChar attribute="String" context="#pop" char="'"/>
+      </context>
+    </contexts>
+
+    <itemDatas>
+      <itemData name="Normal"      defStyleNum="dsNormal"/>
+      <itemData name="Keyword"     defStyleNum="dsKeyword"/>
+      <itemData name="Hash Lang"   defStyleNum="dsOther"/>
+      <itemData name="Function"    defStyleNum="dsFunction"/>
+      <itemData name="Data"        defStyleNum="dsDataType"/>
+      <itemData name="Decimal"     defStyleNum="dsDecVal"/>
+      <itemData name="BaseN"       defStyleNum="dsBaseN"/>
+      <itemData name="Float"       defStyleNum="dsFloat"/>
+      <itemData name="Char"        defStyleNum="dsChar"/>
+      <itemData name="String"      defStyleNum="dsString"/>
+      <itemData name="Comment"     defStyleNum="dsComment"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="1" weakDeliminator="?!"/>
+    <comments>
+      <comment name="singleLine" start="#" />
+    </comments>
+  </general>
+</language>

@@ -134,6 +134,8 @@ library
                        Skylighting.Syntax.Dot
                        Skylighting.Syntax.Doxygen
                        Skylighting.Syntax.Doxygenlua
+                       Skylighting.Syntax.Dssl
+                       Skylighting.Syntax.Dssl2
                        Skylighting.Syntax.Dtd
                        Skylighting.Syntax.Eiffel
                        Skylighting.Syntax.Elixir
