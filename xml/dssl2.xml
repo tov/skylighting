@@ -56,6 +56,7 @@
       <item> let </item>
       <item> assert </item>
       <item> assert_eq </item>
+      <item> assert_error </item>
       <item> if </item>
       <item> elif </item>
       <item> else </item>
