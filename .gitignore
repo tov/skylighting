@@ -1,1 +1,4 @@
 .stack-work
+skylighting.cabal.orig
+src/Skylighting/Syntax.hs
+src/Skylighting/Syntax/
